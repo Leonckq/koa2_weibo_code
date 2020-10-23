@@ -6,7 +6,7 @@ router.get('/', async (ctx, next) => {
   })
 })
 
-router.get('/string', async (ctx, next) => {  
+router.get('/string', async (ctx, next) => {
   ctx.body = 'koa2 string'
 })
 
@@ -16,9 +16,10 @@ router.get('/json', async (ctx, next) => {
   if (session.viewNum == null) {
     session.viewNum = 0
   }
-  session.viewNum++ 
+  session.viewNum++
+  throw Error()
   ctx.body = {
-    title: 'koa2 json',
+    title: 'koa2 json'
     // viewNum: session.viewNum
   }
 })
