@@ -29,3 +29,4 @@ async function getUserInfo(userName, password) {
 module.exports = {
   getUserInfo
 }
+
