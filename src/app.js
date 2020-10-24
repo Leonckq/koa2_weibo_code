@@ -12,8 +12,9 @@ const { isProd } = require('./utils/env')
 
 // 路由
 const errorViewRouter = require('./routes/view/error')
+const userViewRouter = require('./routes/view/user')
+const userAPIRouter = require('./routes/api/user')
 const index = require('./routes/index')
-const users = require('./routes/users')
 
 // error handler
 const onerrorConf = Object.create(null)
@@ -63,9 +64,10 @@ app.use(async (ctx, next) => {
   console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
 })
 
-// routes
+// routes 
 app.use(index.routes(), index.allowedMethods())
-app.use(users.routes(), users.allowedMethods())
+app.use(userViewRouter.routes(), userViewRouter.allowedMethods())
+app.use(userAPIRouter.routes(), userAPIRouter.allowedMethods())
 app.use(errorViewRouter.routes(), errorViewRouter.allowedMethods()) // 404
 
 // error-handling
