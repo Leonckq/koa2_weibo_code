@@ -21,8 +21,6 @@ async function isExist(userName) {
   } else {
     return new ErrorModel(registerUserNameNotExistInfo)
   }
-
-  
 }
 /**
  * 
@@ -30,14 +28,13 @@ async function isExist(userName) {
  * @param {string} password 
  * @param {number} gender 1男 2女 3保密
  */
-async function register ({userName, password, gender}) {
+async function register({ userName, password, gender }) {
   const userInfo = await getUserInfo(userName)
   if (userInfo) {
     // 用户名已存在
-    return ErrorModel(registerUserNameExistInfo)
+    return new ErrorModel(registerUserNameExistInfo)
   }
 
-  // 注册service
   try {
     await createUser({
       userName,
@@ -45,12 +42,12 @@ async function register ({userName, password, gender}) {
       gender
     })
     return new SuccessModel()
-  } catch (error) {
-    console.error(error.message, error.stack)
+  } catch (ex) {
+    console.error(ex.message, ex.stack)
     return new ErrorModel(registerFailInfo)
   }
-
 }
+
 
 module.exports = {
   isExist,
