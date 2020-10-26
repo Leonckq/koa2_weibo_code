@@ -45,6 +45,7 @@ router.post('/login', async (ctx, next) => {
 // delete
 router.post('/delete', loginCheck, async (ctx, next) => {
   if (isTest) {
+    // 测试环境下，测试账号登录可删除自己
     const { userName } = ctx.session.userName
     ctx.body = await deleteCurUser(userName)
   }
