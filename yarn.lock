@@ -247,7 +247,7 @@
 
 "@commitlint/cli@^11.0.0":
   version "11.0.0"
-  resolved "https://npm.ekuaibao.com/@commitlint%2fcli/-/cli-11.0.0.tgz#698199bc52afed50aa28169237758fa14a67b5d3"
+  resolved "https://registry.yarnpkg.com/@commitlint/cli/-/cli-11.0.0.tgz#698199bc52afed50aa28169237758fa14a67b5d3"
   dependencies:
     "@babel/runtime" "^7.11.2"
     "@commitlint/format" "^11.0.0"
@@ -264,7 +264,7 @@
 
 "@commitlint/config-conventional@^11.0.0":
   version "11.0.0"
-  resolved "https://npm.ekuaibao.com/@commitlint%2fconfig-conventional/-/config-conventional-11.0.0.tgz#3fa300a1b639273946de3c3f15e1cda518333422"
+  resolved "https://registry.yarnpkg.com/@commitlint/config-conventional/-/config-conventional-11.0.0.tgz#3fa300a1b639273946de3c3f15e1cda518333422"
   dependencies:
     conventional-changelog-conventionalcommits "^4.3.1"
 
