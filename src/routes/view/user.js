@@ -6,7 +6,7 @@ const router = require('koa-router')()
 
 /**
  * 获取登录信息
- * @param {Object}} ctx 
+ * @param {Object}} ctx
  */
 function getLoginInfo(ctx) {
   const userInfo = ctx.session.userInfo
@@ -17,7 +17,6 @@ function getLoginInfo(ctx) {
 }
 
 router.get('/login', async (ctx, next) => {
-
   await ctx.render('login', getLoginInfo(ctx))
 })
 

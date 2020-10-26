@@ -7,13 +7,13 @@ const { isExist, register, login, deleteCurUser } = require('./../../controller/
 const userValidate = require('./../../validator/user')
 const { genValidator } = require('./../../middlewares/validate')
 const user = require('../../services/user')
-const { loginCheck } = require('./../../middlewares/loginChecks') 
+const { loginCheck } = require('./../../middlewares/loginChecks')
 const { isTest } = require('../../utils/env')
 
 router.prefix('/api/user')
 // 注册
 // router.post('/register', genValidator(userValidate), async (ctx, next) => {
-//   const { userName, password, gender } = ctx.request.body 
+//   const { userName, password, gender } = ctx.request.body
 //   // 调用controller 返回
 //   const body = await register({userName, password, gender})
 //   console.log('body------------->', body)
@@ -43,7 +43,7 @@ router.post('/login', async (ctx, next) => {
 })
 
 // delete
-router.post('/delte',loginCheck, async (ctx, next) => {
+router.post('/delete', loginCheck, async (ctx, next) => {
   if (isTest) {
     const { userName } = ctx.session.userName
     ctx.body = await deleteCurUser(userName)

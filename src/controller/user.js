@@ -5,12 +5,18 @@
 
 const { getUserInfo, createUser, deleteUser } = require('./../services/user')
 const { SuccessModel, ErrorModel } = require('../model/ResModel')
-const { registerUserNameNotExistInfo, registerUserNameExistInfo, registerFailInfo, loginFailInfo, deleteUserFailInfo } = require('./../model/ErrorInfo')
+const {
+  registerUserNameNotExistInfo,
+  registerUserNameExistInfo,
+  registerFailInfo,
+  loginFailInfo,
+  deleteUserFailInfo
+} = require('./../model/ErrorInfo')
 const user = require('./../services/user')
 const { doCrypto } = require('./../utils/cryp')
 /**
  * 用户名是否存在
- * @param {string} userName 
+ * @param {string} userName
  */
 async function isExist(userName) {
   const userInfo = await getUserInfo(userName)
@@ -23,9 +29,9 @@ async function isExist(userName) {
   }
 }
 /**
- * 
- * @param {string} userName 
- * @param {string} password 
+ *
+ * @param {string} userName
+ * @param {string} password
  * @param {number} gender 1男 2女 3保密
  */
 async function register({ userName, password, gender }) {
@@ -51,8 +57,8 @@ async function register({ userName, password, gender }) {
 /**
  * 登录
  * @param {Object} ctx  koa2 ctx
- * @param {string} userName 
- * @param {string} password 
+ * @param {string} userName
+ * @param {string} password
  */
 async function login(ctx, userName, password) {
   // 登录成功 ctx.session.userInfo = xxx
@@ -68,13 +74,22 @@ async function login(ctx, userName, password) {
 }
 /**
  * 删除用户
- * @param {string} userName 
+ * @param {string} userName
  */
+// async function deleteCurUser(userName) {
+//   const result = await deleteUser(userName)
+//   return result ? new SuccessModel() : new ErrorModel(deleteUserFailInfo)
+// }
+
 async function deleteCurUser(userName) {
   const result = await deleteUser(userName)
-  return result ? new SuccessModel() : new ErrorModel(deleteUserFailInfo)
+  if (result) {
+    // 成功
+    return new SuccessModel()
+  }
+  // 失败
+  return new ErrorModel(deleteUserFailInfo)
 }
-
 
 module.exports = {
   isExist,
