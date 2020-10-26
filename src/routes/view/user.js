@@ -12,7 +12,7 @@ function getLoginInfo(ctx) {
   const userInfo = ctx.session.userInfo
   return {
     isLogin: !!userInfo ? true : false,
-    userName: userInfo.userName
+    userName: !!userInfo ? userInfo.userName : ''
   }
 }
 
