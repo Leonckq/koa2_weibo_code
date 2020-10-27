@@ -19,7 +19,7 @@ const errorViewRouter = require('./routes/view/error')
 const userViewRouter = require('./routes/view/user')
 const userAPIRouter = require('./routes/api/user')
 const utilsAPIRouter = require('./routes/api/utils')
-const index = require('./routes/index')
+const blogViewRouter = require('./routes/view/blog')
 
 // error handler
 const onerrorConf = Object.create(null)
@@ -70,11 +70,12 @@ app.use(async (ctx, next) => {
   console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
 })
 
-// routes 
-app.use(index.routes(), index.allowedMethods())
+// routes
+// app.use(index.routes(), index.allowedMethods())
 app.use(userViewRouter.routes(), userViewRouter.allowedMethods())
 app.use(userAPIRouter.routes(), userAPIRouter.allowedMethods())
 app.use(utilsAPIRouter.routes(), utilsAPIRouter.allowedMethods())
+app.use(blogViewRouter.routes(), blogViewRouter.allowedMethods())
 app.use(errorViewRouter.routes(), errorViewRouter.allowedMethods()) // 404
 
 // error-handling
