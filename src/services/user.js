@@ -5,9 +5,9 @@
 const { User } = require('./../db/model/index')
 const { formatUser } = require('./_format')
 /**
- * 
- * @param {String} userName 
- * @param {String} password 
+ *
+ * @param {String} userName
+ * @param {String} password
  */
 // async function getUserInfo(userName, password) {
 //   // 查询条件
@@ -53,9 +53,9 @@ async function getUserInfo(userName, password) {
 
 /**
  *  注册用户
- * @param {string} userName 
- * @param {string} password 
- * @param {number} gender 
+ * @param {string} userName
+ * @param {string} password
+ * @param {number} gender
  */
 // async function createUser({userName, password, gender, nickName = ''}) {
 //   const result = await User.create({
@@ -84,7 +84,7 @@ async function createUser({ userName, password, gender = 3, nickName }) {
 
 /**
  * 删除用户
- * @param {string} userName 
+ * @param {string} userName
  */
 async function deleteUser(userName) {
   const result = await User.destroy({
@@ -95,39 +95,22 @@ async function deleteUser(userName) {
   return result > 0
 }
 /**
- * 
+ *
  * @param {Object} param0 要修改的内容 newPassword, newNickName, newPicture, newCity
  * @param {Object} param1 查询条件 password, nickName
  */
-async function updateUser(
-  { newPassword, newNickName, newPicture, newCity },
-  { password, userName }
-) {
+async function updateUser({ newPassword, newNickName, newPicture, newCity }, { password, userName }) {
   // 拼接修改内容
-  // const updateData = {}
-  // newPassword && Object.assign(updateData, {newPassword})
-  // newNickName && Object.assign(updateData, {newNickName})
-  // newPicture && Object.assign(updateData, {newPicture})
-  // newCity && Object.assign(updateData, {newCity})
-
   const updateData = {}
-  if (newPassword) {
-    updateData.password = newPassword
-  }
-  if (newNickName) {
-    updateData.nickName = newNickName
-  }
-  if (newPicture) {
-    updateData.picture = newPicture
-  }
-  if (newCity) {
-    updateData.city = newCity
-  }
+  newPassword && Object.assign(updateData, { password: newPassword })
+  newNickName && Object.assign(updateData, { nickName: newNickName })
+  newPicture && Object.assign(updateData, { picture: newPicture })
+  newCity && Object.assign(updateData, { city: newCity })
 
   // 拼接查询条件
   const whereOpt = { userName }
-  password && whereOpt.assign({ password })
-  const result = User.update(updateData, {
+  password && Object.assign(whereOpt, { password })
+  const result = await User.update(updateData, {
     where: whereOpt
   })
 
@@ -140,4 +123,3 @@ module.exports = {
   deleteUser,
   updateUser
 }
-
