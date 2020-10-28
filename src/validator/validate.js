@@ -19,6 +19,4 @@ function validate(schema, data = {}) {
   }
 }
 
-module.exports = {
-  validate
-}
+module.exports = validate

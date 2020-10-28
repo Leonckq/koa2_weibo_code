@@ -3,7 +3,7 @@
  * @author Leon
  */
 
-const { validate } = require('./validate')
+const validate = require('./validate')
 // 校验规则
 const SCHEMA = {
   type: 'object',
