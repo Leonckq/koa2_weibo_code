@@ -4,7 +4,7 @@
  */
 
 const { Blog, User } = require('../db/model/index')
-const { formatUser } = require('./_format')
+const { formatUser, formatBlog } = require('./_format')
 /**
  * 创建微博所需数据
  * @param {string} userId
@@ -56,6 +56,7 @@ async function getBlogListByUser({ userName, pageIndex = 0, pageSize = 10 }) {
     blogItem.user = formatUser(blogItem.user.dataValues)
     return blogItem
   })
+  blogList = formatBlog(blogList)
   return {
     count: result.count,
     blogList

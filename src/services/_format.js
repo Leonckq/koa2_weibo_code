@@ -3,6 +3,7 @@
  * @author Leon
  */
 
+const { timeFoment } = require('../utils/dt')
 const { DEFAULT_PICTURE } = require('./../conf/constant')
 /**
  * 用户默认头像
@@ -28,6 +29,33 @@ function formatUser(list) {
   return _formatUserPicture(list)
 }
 
+/**
+ * 格式化数据时间
+ * @param {Object} obj 
+ */
+function _formatDBTime(obj) {
+  obj.createdAtFormat = timeFoment(obj.createdAt)
+  obj.updatedAtFormat = timeFoment(obj.updatedAt)
+  return obj
+}
+
+/**
+ * 格式化博客信息
+ * @param {Array|Object} list 博客列表或者单个用户对象 
+ */
+function formatBlog(list) {
+  if (list == void 0) {
+    return list
+  }
+
+  if (list instanceof Array) {
+    return list.map(_formatDBTime)
+  }
+  return _formatDBTime(list)
+
+}
+
 module.exports = {
-  formatUser
+  formatUser,
+  formatBlog
 }
