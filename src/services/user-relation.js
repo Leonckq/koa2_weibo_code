@@ -33,6 +33,19 @@ async function getUsersByFollower(followerId) {
     userList
   }
 }
+/**
+ * 添加关注关系
+ * @param {number} userId 用户id
+ * @param {number} followerId 被关注用户 id
+ */
+async function addFollwer(userId, followerId) {
+  const result = await UserRelation.create({
+    userId,
+    followerId
+  })
+  return result.dataValues
+}
 module.exports = {
-  getUsersByFollower
+  getUsersByFollower,
+  addFollwer
 }
