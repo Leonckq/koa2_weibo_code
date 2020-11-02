@@ -9,10 +9,9 @@ const { REDIS_CONF } = require('./../conf/db')
 
 //创建客户端
 const redisClient = redis.createClient(REDIS_CONF.port, REDIS_CONF.host)
-redisClient.on_error((err) => {
+redisClient.on('error', err => {
   console.error('redis error', err)
 })
-
 /**
  * redis set
  * @param {string} key key
@@ -54,5 +53,6 @@ function get(key) {
 }
 
 module.exports = {
-  set
+  set,
+  get
 }
