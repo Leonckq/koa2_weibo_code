@@ -3,6 +3,7 @@
  * @author Leon
  */
 const { User } = require('./../db/model/index')
+const { addFollwer } = require('./user-relation')
 const { formatUser } = require('./_format')
 /**
  *
@@ -77,7 +78,7 @@ async function createUser({ userName, password, gender = 3, nickName }) {
   const data = result.dataValues
 
   // 自己关注自己（为了方便首页获取数据）
-  // addFollower(data.id, data.id)
+  addFollwer(data.id, data.id)
 
   return data
 }
