@@ -3,8 +3,9 @@
  * @author Leon
  */
 
+const { addFollowerFailInfo, deleteFollowerFailInfo } = require('../model/ErrorInfo')
 const { SuccessModel, ErrorModel } = require('../model/ResModel')
-const { getUsersByFollower, addFollwer } = require('../services/user-relation')
+const { getUsersByFollower, addFollwer, deleteFollwer } = require('../services/user-relation')
 
 /**
  * 根据 userid 获取粉丝列表
@@ -27,12 +28,27 @@ async function getFans(userId) {
 async function follow(myUserId, curUserId) {
   try {
     await addFollwer(myUserId, curUserId)
-    return SuccessModel()
+    return new SuccessModel()
   } catch (err) {
-    return new ErrorModel(addF)
+    return new ErrorModel(addFollowerFailInfo)
+  }
+}
+/**
+ *
+ * @param {number} myUserId 当前登录的用户 id
+ * @param {number} curUserId 要被关注的用户 id
+ */
+async function unFollow(myUserId, curUserId) {
+  const result = await deleteFollwer(myUserId, curUserId)
+  if (result) {
+    return new SuccessModel()
+  } else {
+    return new ErrorModel(deleteFollowerFailInfo)
   }
 }
 
 module.exports = {
-  getFans
+  getFans,
+  follow,
+  unFollow
 }
