@@ -35,6 +35,16 @@ test('获取leon的关注人，应该有qing', async () => {
   expect(hasUserName).toBe(true)
 })
 
+// 获取 at 列表
+test('获取leon的 at 列表， 应该有qing', async () => {
+  const res = await server.get('/api/user/getAtList').set('cookie', L_COOKIE)
+  const atList = res.body
+  const hasUser = atList.some((user) => {
+    return user.indexOf(`- ${Q_USER_NAME}`) > 0
+  })
+  expect(hasUser).toBe(true)
+})
+
 // 取消关注
 test('leon取消关注qing，应该成功', async () => {
   const res = await server.post('/api/profile/unFollow').send({ userId: Q_ID }).set('cookie', L_COOKIE)
