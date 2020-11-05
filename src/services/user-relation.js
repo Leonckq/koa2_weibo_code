@@ -5,7 +5,7 @@
 
 const { User, UserRelation } = require('../db/model/index')
 const { formatUser } = require('./_format')
-
+const Sequelize = require('sequelize')
 /**
  * 获取关注该用户的用户列表， 即该用户的粉丝
  * @param {number} followerId 被关注人的 id
@@ -18,7 +18,10 @@ async function getUsersByFollower(followerId) {
       {
         model: UserRelation,
         where: {
-          followerId
+          followerId,
+          userId: {
+            [Sequelize.Op.ne]: followerId
+          }
         }
       }
     ]
@@ -35,13 +38,11 @@ async function getUsersByFollower(followerId) {
 }
 /**
  * 获取关注人列表
- * @param {number} userId 
+ * @param {number} userId
  */
 async function getFollowerByUser(userId) {
   const result = await UserRelation.findAndCountAll({
-    order: [
-      ['id', 'desc']
-    ],
+    order: [['id', 'desc']],
     include: [
       {
         model: User,
@@ -49,11 +50,14 @@ async function getFollowerByUser(userId) {
       }
     ],
     where: {
-      userId
+      userId,
+      followerId: {
+        [Sequelize.Op.ne]: userId
+      }
     }
   })
-  let userList = result.rows.map(row => row.dataValues)
-  userList = userList.map(item => {
+  let userList = result.rows.map((row) => row.dataValues)
+  userList = userList.map((item) => {
     let user = item.user.dataValues
     user = formatUser(user)
     return user
@@ -90,7 +94,6 @@ async function deleteFollwer(userId, followerId) {
   })
   return result > 0
 }
-
 
 module.exports = {
   getUsersByFollower,
