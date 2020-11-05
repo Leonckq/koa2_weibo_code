@@ -5,7 +5,7 @@
 
 const { PAGE_SIZE } = require('../conf/constant')
 const { SuccessModel } = require('../model/ResModel')
-const { getAtRelationCount, getAtUserBlogList } = require('../services/at-Relation')
+const { getAtRelationCount, getAtUserBlogList, updateAtRelation } = require('../services/at-Relation')
 
 /**
  * 获取@ 我的微博数量
@@ -35,8 +35,22 @@ async function getAtMeBlogList(userId, pageIndex = 0) {
     count
   })
 }
+/**
+ * 标记已读
+ * @param {number} userId
+ */
+async function markAsRead(userId) {
+  try {
+    await updateAtRelation({ newIsRead: true }, { userId, isRead: false })
+  } catch (ex) {
+    console.error(ex)
+  }
+
+  // 不需要返回SuccessModal
+}
 
 module.exports = {
   getAtMeCount,
-  getAtMeBlogList
+  getAtMeBlogList,
+  markAsRead
 }

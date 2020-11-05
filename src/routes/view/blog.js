@@ -9,7 +9,7 @@ const { getSquareBlogList } = require('../../controller/blog-square')
 const { loginRedirect } = require('../../middlewares/loginChecks')
 const { isExist } = require('./../../controller/user')
 const { getHomeBlogList } = require('../../controller/blog-home')
-const { getAtMeCount, getAtMeBlogList } = require('../../controller/blog-at')
+const { getAtMeCount, getAtMeBlogList, markAsRead } = require('../../controller/blog-at')
 const user = require('../../services/user')
 router.get('/', loginRedirect, async (ctx, next) => {
   const userInfo = ctx.session.userInfo
@@ -142,6 +142,7 @@ router.get('/at-me', loginRedirect, async (ctx, next) => {
   })
   // 标记为已读
   if (atCount > 0) {
+    await markAsRead(userId)
   }
 })
 
