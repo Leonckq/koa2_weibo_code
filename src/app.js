@@ -23,6 +23,7 @@ const utilsAPIRouter = require('./routes/api/utils')
 const blogViewRouter = require('./routes/view/blog')
 const squareAPIRouter = require('./routes/api/blog-square')
 const homeAPIRouter = require('./routes/api/blog-home')
+const atAPIRouter = require('./routes/api/blog-at')
 
 // error handler
 const onerrorConf = Object.create(null)
@@ -75,6 +76,7 @@ app.use(async (ctx, next) => {
 
 // routes
 // app.use(index.routes(), index.allowedMethods())
+app.use(atAPIRouter.routes(), atAPIRouter.allowedMethods())
 app.use(userViewRouter.routes(), userViewRouter.allowedMethods())
 app.use(userAPIRouter.routes(), userAPIRouter.allowedMethods())
 app.use(utilsAPIRouter.routes(), utilsAPIRouter.allowedMethods())
